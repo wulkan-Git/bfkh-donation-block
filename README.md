@@ -37,7 +37,7 @@
 <div id="bfkh-donation-block-container"></div>
 
 <script>
-  fetch('https://wulkan-git.github.io/bfkh-donation-block')
+  fetch('https://wulkan-git.github.io/bfkh-donation-block/index.html')
     .then(response => response.text())
     .then(html => {
       document.getElementById('bfkh-donation-block-container').innerHTML = html;
