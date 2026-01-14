@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Демо: Блок для пожертвований Фонда Хабенского</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Стили из основного файла, плюс дополнительные для демо */
+  * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .bfkh-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .bfkh-block {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid #eaeaea;
+            transition: all 0.3s ease;
+        }
+        
+        .bfkh-block:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        .bfkh-header {
+            background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 25px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bfkh-header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.05);
+            transform: rotate(30deg);
+        }
+        
+        .bfkh-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .bfkh-logo-icon {
+            background-color: rgba(255, 255, 255, 0.15);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+        }
+        
+        .bfkh-logo-text h1 {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+        
+        .bfkh-logo-text p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .bfkh-content {
+            padding: 35px 30px;
+        }
+        
+        .bfkh-mission {
+            font-size: 20px;
+            line-height: 1.5;
+            color: #2a5298;
+            margin-bottom: 30px;
+            padding-left: 20px;
+            border-left: 4px solid #ff6b35;
+            font-weight: 500;
+        }
+        
+        .bfkh-donation-btn {
+            display: inline-block;
+            background: linear-gradient(90deg, #ff6b35 0%, #ff8e53 100%);
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+            letter-spacing: 0.5px;
+        }
+        
+        .bfkh-donation-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
+        }
+        
+        .bfkh-donation-btn:active {
+            transform: translateY(0);
+        }
+        
+        .bfkh-donation-btn i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        
+        .bfkh-donation-btn::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
+        }
+        
+        .bfkh-donation-btn:hover::after {
+            left: 100%;
+        }
+        
+        .bfkh-info {
+            background-color: #f1f7ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .bfkh-info h3 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .bfkh-info h3 i {
+            margin-right: 10px;
+            color: #ff6b35;
+        }
+        
+        .bfkh-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #eee;
+        }
+        
+        .bfkh-link {
+            color: #2a5298;
+            text-decoration: none;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .bfkh-link:hover {
+            color: #ff6b35;
+            transform: translateX(5px);
+        }
+        
+        .bfkh-link i {
+            margin-right: 8px;
+            font-size: 14px;
+        }
+        
+        .bfkh-footer {
+            background-color: #f8f9fa;
+            padding: 20px 30px;
+            color: #666;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .bfkh-footer a {
+            color: #2a5298;
+            text-decoration: none;
+        }
+        
+        .bfkh-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .bfkh-header {
+                padding: 20px;
+            }
+            
+            .bfkh-content {
+                padding: 25px 20px;
+            }
+            
+            .bfkh-mission {
+                font-size: 18px;
+                padding-left: 15px;
+            }
+            
+            .bfkh-donation-btn {
+                width: 100%;
+                padding: 16px 30px;
+                font-size: 17px;
+            }
+            
+            .bfkh-footer {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .bfkh-logo {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .bfkh-logo-icon {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            .bfkh-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .bfkh-info {
+                padding: 15px;
+            }
+        }
+        
+        /* Анимация появления */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .bfkh-block {
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        /* Для интеграции в WordPress */
+        .wp-embed {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1><i class="fas fa-donate"></i> Демонстрация блока пожертвований</h1>
+            <p>Благотворительный Фонд Константина Хабенского</p>
+        </div>
+        
+       <div class="bfkh-container">
+        <div class="bfkh-block">
+            <div class="bfkh-header">
+                <div class="bfkh-logo">
+                    <div class="bfkh-logo-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <div class="bfkh-logo-text">
+                        <h1>Благотворительный Фонд Константина Хабенского</h1>
+                        <p>Помощь детям с опухолями мозга</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bfkh-content">
+                <div class="bfkh-mission">
+                    Наша миссия — повышение качества лечения и реабилитации детей и молодых взрослых с опухолями мозга
+                </div>
+                
+                <a href="https://bfkh.ru/how-to-help/donation/online/" class="bfkh-donation-btn" target="_blank">
+                    <i class="fas fa-heart"></i> Сделать пожертвование
+                </a>
+                
+                <div class="bfkh-info">
+                    <h3><i class="fas fa-info-circle"></i> О Фонде</h3>
+                    <p>Благотворительный Фонд Константина Хабенского с 2008 года помогает детям и молодым взрослым с опухолями мозга. Фонд оплачивает диагностику и лечение, организует реабилитационные программы, способствует развитию нейроонкологической службы в России.</p>
+                </div>
+                
+                <div class="bfkh-links">
+                    <a href="https://bfkh.ru/oferta_bfkh.pdf" class="bfkh-link" target="_blank">
+                        <i class="fas fa-file-contract"></i> Договор оферты
+                    </a>
+                    <a href="https://github.com/wulkan-Git" class="bfkh-link" target="_blank">
+                        <i class="fab fa-github"></i> Автор кода
+                    </a>
+                    <a href="https://bfkh.ru" class="bfkh-link" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Официальный сайт фонда
+                    </a>
+                </div>
+            </div>
+            
+            <div class="bfkh-footer">
+                <div>Благотворительный Фонд Константина Хабенского</div>
+                <div>© 2008-2026. Все права защищены.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Добавляем интерактивность кнопке пожертвования
+        document.querySelector('.bfkh-donation-btn').addEventListener('click', function(e) {
+            // Можно добавить аналитику или подтверждение
+            console.log('Переход на страницу пожертвования фонда Хабенского');
+            
+            // Открыть в новом окне (уже есть target="_blank" в ссылке)
+            // Для дополнительной функциональности можно добавить здесь
+        });
+        
+        // Плавное появление элементов при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.bfkh-mission, .bfkh-donation-btn, .bfkh-info, .bfkh-links');
+            elements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(10px)';
+                    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    
+                    setTimeout(() => {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }, 50);
+                }, index * 100);
+            });
+        });
+    </script>
+        
+        <div class="usage-instructions">
+            <h2><i class="fas fa-code"></i> Как использовать</h2>
+            <p>Скопируйте код ниже и вставьте на свой сайт:</p>
+            <pre><code>&lt;!-- Блок пожертвований Фонда Хабенского --&gt;
+&lt;div id="bfkh-donation-block"&gt;
+<!-- Вставьте этот код в нужное место на странице -->
+<div id="bfkh-donation-block-container"></div>
+
+<script>
+  fetch('https://raw.githubusercontent.com/wulkan-Git/bfkh-donation-block/main/index.html')
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById('bfkh-donation-block-container').innerHTML = html;
+    });
+</script>
+&lt;/div&gt;</code></pre>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Адаптивный</h3>
+                    <p>Идеально на всех устройствах</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Быстрый</h3>
+                    <p>Загружается мгновенно</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-paint-brush"></i>
+                    <h3>Красивый</h3>
+                    <p>Современный дизайн</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
